@@ -8,7 +8,7 @@
 
 <script>
 import epub from 'epub.js/build/epub.js'
-import book from 'epub.js/books/alice.epub'
+import book from '../../roadside.epub'
 let Book
 export default {
   data () {
