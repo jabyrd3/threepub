@@ -1,9 +1,13 @@
 <template>
 
-<div class="control" v-on:click="prevPage">‹</div>
+<div class="control" v-on:click="prevPage">
+  <span>‹</span>
+</div>
   <div class="epub" id="area">
   </div>
-<div class="control" v-on:click="nextPage">›</div>
+<div class="control" v-on:click="nextPage">
+  <span>›</span>
+</div>
 </template>
 
 <script>
@@ -45,7 +49,13 @@ export default {
     position: absolute;
     top: 0;
     z-index: 1000;
-
+    font-size: 38px;
+    font-weight: bold;
+    background-color: #666;
+    color: white;
+    font-weight: bold;
+    height: 100vh;
+    text-align: center;
   }
   .control:first-of-type{
     left: 0;
