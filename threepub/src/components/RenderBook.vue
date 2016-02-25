@@ -3,6 +3,7 @@
 <div class="control" v-on:click="prevPage">
   <span>‹</span>
 </div>
+  <div class="catcher" v-touch:panleft="test"></div>
   <div class="epub" id="area">
   </div>
 <div class="control" v-on:click="nextPage">
@@ -23,6 +24,10 @@ export default {
     Book.renderTo('area')
   },
   methods: {
+    test: function () {
+      console.log('test')
+      Book.nextPage()
+    },
     prevPage: function () {
       Book.prevPage()
     },
@@ -33,6 +38,14 @@ export default {
 }
 </script>
 <style type="text/css">
+  .catcher{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    right:0;
+    z-index:1000;
+  }
   iframe{
     position: fixed;
     height: 90vh;
@@ -48,7 +61,7 @@ export default {
   .control{
     position: absolute;
     top: 0;
-    z-index: 1000;
+    z-index: 1001;
     font-size: 38px;
     font-weight: bold;
     background-color: #666;

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <render-book></render-book>
+    <render-book ></render-book>
   </div>
 </template>
 
@@ -10,6 +10,9 @@
 // window.RSVP = rsvp
 // window.localforage = localforage
 import RenderBook from './components/RenderBook'
+import Vue from 'vue'
+import VueTouch from 'vue-touch'
+Vue.use(VueTouch)
 export default {
   components: {
     RenderBook
