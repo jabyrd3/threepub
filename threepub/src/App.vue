@@ -5,10 +5,6 @@
 </template>
 
 <script>
-// import rsvp from 'rsvp/dist/rsvp.min.js'
-// import localforage from 'epub.js/build/libs/localforage.min.js'
-// window.RSVP = rsvp
-// window.localforage = localforage
 import RenderBook from './components/RenderBook'
 import Vue from 'vue'
 import VueTouch from 'vue-touch'

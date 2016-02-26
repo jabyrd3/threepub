@@ -1,9 +1,9 @@
 <template>
 
-<div class="control" v-on:click="prevPage">
+<div class="control" v-on:="prevPage">
   <span>‹</span>
 </div>
-  <div class="catcher" v-touch:panleft="test"></div>
+  <div class="catcher" v-touch:swipeleft="nextPage" v-touch:swiperight="prevPage" v-touch:tap="controls"></div>
   <div class="epub" id="area">
   </div>
 <div class="control" v-on:click="nextPage">
@@ -13,7 +13,9 @@
 
 <script>
 import epub from 'epub.js/build/epub.js'
+import state from '../state'
 import book from '../../roadside.epub'
+console.log(state)
 let Book
 export default {
   data () {
@@ -33,6 +35,9 @@ export default {
     },
     nextPage: function () {
       Book.nextPage()
+    },
+    controls: function () {
+      // $broadcast('toggleSettings')
     }
   }
 }
