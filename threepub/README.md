@@ -1,6 +1,7 @@
 # threepub
 
 > vuejs epub reader
+it's really dumb that there isn't an open source epub reader that works across ios, android, chrome, osx, windows and linux and uses dropbox for syncing. So ima make one. 
 
 ## Build Setup
 
