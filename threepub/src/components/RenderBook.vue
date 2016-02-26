@@ -1,33 +1,46 @@
 <template>
-
-<div class="control" v-on:="prevPage">
-  <span>‹</span>
-</div>
-  <div class="catcher" v-touch:swipeleft="nextPage" v-touch:swiperight="prevPage" v-touch:tap="controls"></div>
-  <div class="epub" id="area">
+  <div v-if="settings.turnMode === 'press'" class="control" v-on:="prevPage">
+    <span>‹</span>
   </div>
-<div class="control" v-on:click="nextPage">
-  <span>›</span>
-</div>
+  <controls v-show="controls"></controls>
+  <div 
+    v-if="settings.turnMode === 'swipe'" 
+    class="catcher" 
+    v-touch:swipeleft="nextPage" 
+    v-touch:swiperight="prevPage" 
+    v-touch:tap="toggleControls"></div>
+  <div 
+    v-if="settings.turnMode !== 'swipe'" 
+    class="catcher" 
+    v-touch:tap="toggleControls"></div>
+  <div class="epub" id="area"></div>
+  <div v-if="settings.turnMode === 'press'" class="control" v-on:click="nextPage">
+    <span>›</span>
+  </div>
 </template>
 
 <script>
 import epub from 'epub.js/build/epub.js'
 import state from '../state'
 import book from '../../roadside.epub'
-console.log(state)
+import Controls from './Controls'
 let Book
 export default {
   data () {
-    return {}
+    return {
+      controls: state.controls,
+      settings: state.settings
+    }
   },
   ready () {
     Book = epub(book)
     Book.renderTo('area')
   },
+  components: {
+    Controls
+  },
   methods: {
     test: function () {
-      console.log('test')
       Book.nextPage()
     },
     prevPage: function () {
@@ -36,8 +49,8 @@ export default {
     nextPage: function () {
       Book.nextPage()
     },
-    controls: function () {
-      // $broadcast('toggleSettings')
+    toggleControls: function () {
+      this.controls = !this.controls
     }
   }
 }

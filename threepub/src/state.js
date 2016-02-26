@@ -1,5 +1,7 @@
 export default {
-  turnMode: 'swipe',
   controls: false,
-  book: 'roadside.epub'
+  book: 'roadside.epub',
+  settings: {
+    turnMode: 'swipe'
+  }
 }

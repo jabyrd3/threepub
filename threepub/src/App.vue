@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <render-book ></render-book>
+    <render-book></render-book>
   </div>
 </template>
 
 <script>
-import RenderBook from './components/RenderBook'
 import Vue from 'vue'
 import VueTouch from 'vue-touch'
+import RenderBook from './components/RenderBook'
 Vue.use(VueTouch)
 export default {
   components: {
