@@ -1,19 +1,31 @@
 <template>
   <div id="app">
-    <render-book></render-book>
+	<router-view></router-view>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import VueTouch from 'vue-touch'
-import RenderBook from './components/RenderBook'
-Vue.use(VueTouch)
-export default {
-  components: {
-    RenderBook
+  import Vue from 'vue'
+  import VueRouter from 'VueRouter'
+  import VueTouch from 'vue-touch'
+  import RenderBook from './components/RenderBook'
+  import Library from './components/Library'
+  var router = new VueRouter()
+  router.map({
+	'/library': {
+		component: Library
+	},
+	'/book': {
+		component: RenderBook
+	}
+  })
+  Vue.use(VueTouch)
+  export default {
+    components: {
+      RenderBook,
+	  Library
+    }
   }
-}
 </script>
 
 <style>
