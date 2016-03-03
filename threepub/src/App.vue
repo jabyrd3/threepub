@@ -1,30 +1,36 @@
 <template>
   <div id="app">
-	<router-view></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
-  import VueRouter from 'VueRouter'
+  import VueRouter from 'vue-router'
   import VueTouch from 'vue-touch'
   import RenderBook from './components/RenderBook'
   import Library from './components/Library'
-  var router = new VueRouter()
-  router.map({
-	'/library': {
-		component: Library
-	},
-	'/book': {
-		component: RenderBook
-	}
-  })
-  Vue.use(VueTouch)
   export default {
     components: {
       RenderBook,
-	  Library
+      Library
     }
+  }
+  window.onload = function () {
+    Vue.use(VueTouch)
+    Vue.use(VueRouter)
+    var App = Vue.extend({})
+    Vue.config.debug = true
+    var router = new VueRouter()
+    router.map({
+      '/library': {
+        component: Library
+      },
+      '/book': {
+        component: RenderBook
+      }
+    })
+    router.start(App, '#app')
   }
 </script>
 
