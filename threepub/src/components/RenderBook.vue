@@ -24,6 +24,9 @@ import epub from 'epub.js/build/epub.js'
 import state from '../state'
 import book from '../../roadside.epub'
 import Controls from './Controls'
+import panniers from '../assets/panniers.js/panniers.js'
+import _ from 'lodash'
+console.log(panniers, _.each([1, 2], function (item) { console.log(item) }))
 let Book
 export default {
   data () {
