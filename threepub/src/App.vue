@@ -10,10 +10,13 @@
   import VueTouch from 'vue-touch'
   import RenderBook from './components/RenderBook'
   import Library from './components/Library'
+  import Authed from './components/Authed'
+  // import Dropbox from './components/Dropbox'
   export default {
     components: {
       RenderBook,
       Library
+      // Dropbox
     }
   }
   window.onload = function () {
@@ -21,14 +24,17 @@
     Vue.use(VueRouter)
     var App = Vue.extend({})
     Vue.config.debug = true
-    var router = new VueRouter()
+    var router = new VueRouter({hashbang: false, history: true})
     router.map({
       '/library': {
         component: Library
       },
       '/book': {
         component: RenderBook
-      }
+      },
+	  '/authed' : {
+        component: Authed
+	  }
     })
     router.start(App, '#app')
   }

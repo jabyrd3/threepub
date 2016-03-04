@@ -1,8 +1,8 @@
 import _ from 'lodash'
-(function () {
+module.exports = function (config) {
   /* globals XMLHttpRequest */
   var service = {}
-  var apiURL = 'http://tv:8080'
+  var apiURL = config.apiUrl
   var endpoints = ['']
   // var url = []
   service.map = {}
@@ -54,20 +54,21 @@ import _ from 'lodash'
     service.reset()
     var deferred = new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest()
-      if (typeof data === 'string') {
+      console.log(method, data)
+      if (typeof data === 'string' || !data) {
         // has querystring
         console.log('apiurl', apiURL + service.concatenator(local.map,
           data))
         xhr.open(method, apiURL + service.concatenator(local.map, data),
           true)
+        xhr.send(null)
       } else {
+        xhr.open(method, apiURL + service.concatenator(local.map, data),
+          true)
         xhr.setRequestHeader('Content-Type',
           'application/jsoncharset=UTF-8')
         xhr.send(JSON.stringify(data))
-        xhr.open(method, apiURL + service.concatenator(local.map, data),
-          true)
       }
-      xhr.send(null)
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
           console.log('http success', xhr.response)
@@ -132,5 +133,4 @@ import _ from 'lodash'
   }
   window.apiService = service
   return service
-})()
-
+}

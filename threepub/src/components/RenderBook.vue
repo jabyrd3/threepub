@@ -25,8 +25,8 @@ import state from '../state'
 import book from '../../roadside.epub'
 import Controls from './Controls'
 import panniers from '../assets/panniers.js/panniers.js'
-import _ from 'lodash'
-console.log(panniers, _.each([1, 2], function (item) { console.log(item) }))
+// import _ from 'lodash'
+console.log(panniers({apiUrl: 'http://google.com'}).get().then(res => { console.log(res) }))
 let Book
 export default {
   data () {
