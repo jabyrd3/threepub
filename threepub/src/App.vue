@@ -32,7 +32,7 @@
       '/book': {
         component: RenderBook
       },
-	  '/authed' : {
+	  '/authed': {
         component: Authed
 	  }
     })
