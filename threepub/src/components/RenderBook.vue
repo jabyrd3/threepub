@@ -2,7 +2,7 @@
   <div v-if="settings.turnMode === 'press'" class="control" v-on:="prevPage">
     <span>‹</span>
   </div>
-  <controls v-show="controls"></controls>
+  <controls v-show="controls" transition="slide"></controls>
   <div 
     v-if="settings.turnMode === 'swipe'" 
     class="catcher" 
@@ -25,7 +25,6 @@ import state from '../state'
 import book from '../../roadside.epub'
 import Controls from './Controls'
 import panniers from '../assets/panniers.js/panniers.js'
-// import _ from 'lodash'
 console.log(panniers({apiUrl: 'http://google.com'}).get().then(res => { console.log(res) }))
 let Book
 export default {
@@ -96,5 +95,13 @@ export default {
   }
   .control:last-of-type{
     right: 0;
+  }
+  .slide-transition{
+    transition: all .3s ease;
+    overflow: hidden;
+    top: 0;
+  }
+  .slide-enter, .slide-leave{
+    top:-20vh!important;
   }
 </style>

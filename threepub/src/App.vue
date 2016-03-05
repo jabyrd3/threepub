@@ -32,9 +32,9 @@
       '/book': {
         component: RenderBook
       },
-	  '/authed': {
+      '/authed': {
         component: Authed
-	  }
+      }
     })
     router.start(App, '#app')
   }
