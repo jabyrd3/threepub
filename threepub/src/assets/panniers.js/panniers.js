@@ -2,8 +2,16 @@ import _ from 'lodash'
 module.exports = function (config) {
   /* globals XMLHttpRequest */
   var service = {}
-  var apiURL = config.apiUrl
-  var endpoints = ['']
+  if (config.apiUrl) {
+    var apiURL = config.apiUrl
+  }
+  if (config.tempToken) {
+    var tempToken = config.tempToken
+  }
+  if (config.permToken) {
+    var permToken = config.permToken
+  }
+  var endpoints = ['1', '2', 'token']
   // var url = []
   service.map = {}
   service.bodyObj = {}
@@ -67,6 +75,10 @@ module.exports = function (config) {
           true)
         xhr.setRequestHeader('Content-Type',
           'application/jsoncharset=UTF-8')
+        if (permToken || tempToken) {
+          xhr.setRequestHeader('Authorization',
+            `Bearer ${permToken || tempToken}`)
+        }
         xhr.send(JSON.stringify(data))
       }
       xhr.onreadystatechange = function () {

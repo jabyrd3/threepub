@@ -24,8 +24,8 @@ import epub from 'epub.js/build/epub.js'
 import state from '../state'
 import book from '../../roadside.epub'
 import Controls from './Controls'
-import panniers from '../assets/panniers.js/panniers.js'
-console.log(panniers({apiUrl: 'http://google.com'}).get().then(res => { console.log(res) }))
+// import panniers from '../assets/panniers.js/panniers.js'
+// console.log(panniers({apiUrl: 'http://google.com'}).get().then(res => { console.log(res) }))
 let Book
 export default {
   data () {

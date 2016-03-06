@@ -27,6 +27,7 @@
     var router = new VueRouter({hashbang: false, history: true})
     router.map({
       '/library': {
+        name: 'library',
         component: Library
       },
       '/book': {
