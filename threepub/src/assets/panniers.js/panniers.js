@@ -5,13 +5,10 @@ module.exports = function (config) {
   if (config.apiUrl) {
     var apiURL = config.apiUrl
   }
-  if (config.tempToken) {
-    var tempToken = config.tempToken
+  if (config.token) {
+    var token = config.token
   }
-  if (config.permToken) {
-    var permToken = config.permToken
-  }
-  var endpoints = ['1', '2', 'token']
+  var endpoints = ['1', '2', 'token', 'files', 'list_folder', 'download']
   // var url = []
   service.map = {}
   service.bodyObj = {}
@@ -45,14 +42,15 @@ module.exports = function (config) {
         }
       })
     }
-    if (query) {
+    if (query && typeof query === 'string') {
       concat += query
     }
     console.log('concat', concat)
     return concat
   }
   // handles all http reqs
-  service.genericHttp = function (method, data) {
+  service.genericHttp = function (method, data, header, raw) {
+    console.log(method, data, header, raw)
     // clone vars to scope and reset so that we don't get collisions
     var local = {
       bodyObj: _.clone(service.bodyObj),
@@ -62,32 +60,54 @@ module.exports = function (config) {
     service.reset()
     var deferred = new Promise(function (resolve, reject) {
       var xhr = new XMLHttpRequest()
-      console.log(method, data)
+      console.log(method, typeof data)
       if (typeof data === 'string' || !data) {
         // has querystring
         console.log('apiurl', apiURL + service.concatenator(local.map,
           data))
         xhr.open(method, apiURL + service.concatenator(local.map, data),
           true)
+        console.log(token)
+        if (token) {
+          xhr.setRequestHeader('Authorization',
+            `Bearer ${token}`)
+        }
+        if (header) {
+          xhr.setRequestHeader(header[0], header[1])
+        }
         xhr.send(null)
       } else {
-        xhr.open(method, apiURL + service.concatenator(local.map, data),
+        xhr.open(method, apiURL + service.concatenator(local.map),
           true)
         xhr.setRequestHeader('Content-Type',
-          'application/jsoncharset=UTF-8')
-        if (permToken || tempToken) {
+          'application/json; charset=UTF-8')
+        console.log(token)
+        if (token) {
           xhr.setRequestHeader('Authorization',
-            `Bearer ${permToken || tempToken}`)
+            `Bearer ${token}`)
+        }
+        console.log('data', JSON.stringify(data))
+        if (header) {
+          xhr.setRequestHeader(header[0], header[1])
         }
         xhr.send(JSON.stringify(data))
       }
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log('http success', xhr.response)
-          resolve({
-            status: xhr.status,
-            response: xhr.response
-          })
+          //  console.log('http success', xhr.response)
+          if (!raw) {
+            console.log('bout to parse bro')
+            resolve({
+              status: xhr.status,
+              response: JSON.parse(xhr.response)
+            })
+          } else {
+            console.log('not gonna parse')
+            resolve({
+              status: xhr.status,
+              response: xhr.response
+            })
+          }
         } else if (xhr.readyState === 4 && (xhr.status === 500 || xhr
             .status === 404)) {
           console.log('http fail', xhr.response)
@@ -110,11 +130,12 @@ module.exports = function (config) {
       return service
     }
   })
-  service.post = function (passObj) {
+  service.post = function (passObj, header, raw) {
+    console.log(passObj)
     if (passObj) {
       service.bodyObj = passObj
     }
-    return service.genericHttp('POST')
+    return service.genericHttp('POST', passObj, header, raw)
   }
   service.get = function (querystring) {
     if (typeof querystring === 'string') {

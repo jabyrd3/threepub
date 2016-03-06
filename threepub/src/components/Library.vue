@@ -2,7 +2,14 @@
   <div class="hello">
     <h1>Library</h1>
 	<p v-if="token.length == 0"><a href="https://www.dropbox.com/1/oauth2/authorize?client_id=r31566z4sbecjsk&response_type=token&redirect_uri=http://localhost:8080/authed">db auth</a></p>
-        <p v-else>
+        <div v-if="files.length > 0">
+          <ul>
+            <li v-for="file in files">
+              <a v-link="{name: 'book', params:{id: file.name}}">{{file.name}}</a>
+            </li> 
+          </ul> 
+        </div>
+        <p v-if="token && files.length === 0">
           ...fetching books... 
         </p>
   </div>
@@ -10,15 +17,32 @@
 
 <script>
 import state from '../state.js'
+import panniers from '../assets/panniers.js/panniers.js'
 export default {
   data () {
     return {
-      token: state.dropbox.token // state.dropbox.token.length > 0
+      token: state.dropbox.token,
+      files: []
     }
   },
   ready () {
     if (this.token) {
+      let panny = panniers({
+        apiUrl: state.dropbox.apiUrl + '2',
+        token: state.dropbox.token
+      })
       console.log('there is a token')
+      panny
+        .files()
+        .list_folder()
+        .post({
+          path: ''
+        })
+        .then(res => {
+          console.log(res)
+          this.files = res.response.entries
+        })
+        .catch()
     } else {
       console.log('nah breh')
     }
