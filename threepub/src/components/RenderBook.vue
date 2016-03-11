@@ -24,7 +24,7 @@ import epub from 'epub.js/build/epub.js'
 import state from '../state'
 // import book from '../../roadside.epub'
 import Controls from './Controls'
-import panniers from '../assets/panniers.js/panniers.js'
+// import panniers from '../assets/panniers.js/panniers.js'
 // console.log(panniers({apiUrl: 'http://google.com'}).get().then(res => { console.log(res) }))
 let Book
 export default {
@@ -36,19 +36,8 @@ export default {
   },
   ready () {
     console.log(this)
-    var panny = panniers({
-      token: state.dropbox.token,
-      apiUrl: 'https://content.dropboxapi.com/2'
-    })
-    panny
-      .files()
-      .download()
-      .post(false, [
-        'Dropbox-API-Arg', JSON.stringify({path: '/' + this.$route.params.id})], true).then(res => {
-          console.log(res)
-          Book = epub('data: ' + res.response)
-          Book.renderTo('area')
-        })
+    Book = epub(this.$route.params.link)
+    Book.renderTo('area')
   },
   components: {
     Controls

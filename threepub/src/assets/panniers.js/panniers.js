@@ -8,7 +8,7 @@ module.exports = function (config) {
   if (config.token) {
     var token = config.token
   }
-  var endpoints = ['1', '2', 'token', 'files', 'list_folder', 'download']
+  var endpoints = ['1', '2', 'token', 'files', 'list_folder', 'download', 'sharing', 'create_shared_link_with_settings']
   // var url = []
   service.map = {}
   service.bodyObj = {}

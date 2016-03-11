@@ -30,7 +30,7 @@
         name: 'library',
         component: Library
       },
-      '/book/:id': {
+      '/book/:link': {
         name: 'book',
         component: RenderBook
       },
