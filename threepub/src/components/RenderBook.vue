@@ -6,14 +6,14 @@
   <div 
     v-if="settings.turnMode === 'swipe'" 
     class="catcher" 
-    v-touch:swipeleft="nextPage" 
-    v-touch:swiperight="prevPage" 
+    v-touch:pan="pan"
+    v-touch:panend="panend"
     v-touch:tap="toggleControls"></div>
   <div 
     v-if="settings.turnMode !== 'swipe'" 
     class="catcher" 
     v-touch:tap="toggleControls"></div>
-  <div class="epub" id="area"></div>
+  <div class="epub" id="area" v-bind:style="translate"></div>
   <div v-if="settings.turnMode === 'press'" class="control" v-on:click="nextPage">
     <span>›</span>
   </div>
@@ -31,12 +31,13 @@ export default {
   data () {
     return {
       controls: state.controls,
-      settings: state.settings
+      settings: state.settings,
+      translate: {transform: 'translate3d(0,0,0)'}
     }
   },
   ready () {
-    console.log(this)
-    Book = epub(this.$route.params.link)
+    console.log(state)
+    Book = epub(state.currentBook.url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('dl=0', 'dl=1'))
     Book.renderTo('area')
   },
   components: {
@@ -54,6 +55,18 @@ export default {
     },
     toggleControls: function () {
       this.controls = !this.controls
+    },
+    panend: function (e) {
+      if (e.deltaX > 0 && e.deltaX > window.innerWidth / 3) {
+        this.prevPage()
+      } else if (e.deltaX < 0 && e.deltaX < -window.innerWidth / 3) {
+        this.nextPage()
+      }
+      this.translate.transform = 'translate3d(0,0,0)'
+    },
+    pan: function (e) {
+      this.translate.transform = `translate3d(${e.deltaX}px, 0, 0)`
+      console.log(e)
     }
   }
 }
@@ -66,6 +79,13 @@ export default {
     top: 0;
     right:0;
     z-index:1000;
+  }
+  #area{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:100%;
   }
   iframe{
     position: fixed;

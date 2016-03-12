@@ -52,11 +52,9 @@ export default {
             path: file.path_display
           }).then((res) => {
             console.log(res)
+            state.currentBook = res.response
             this.$router.go({
-              name: 'book',
-              params: {
-                link: res.response.url
-              }
+              name: 'book'
             })
           })
       }
