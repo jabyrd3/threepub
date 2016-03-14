@@ -16,6 +16,7 @@ export default {
     var spilt = window.location.hash.substr(1, window.location.hash.length).split('=')
     this.token = state.dropbox.token = spilt[1].split('&')[0]
     state.dropbox.uid = spilt[spilt.length - 1]
+    state.commit()
     console.log(this)
     window.setTimeout(() => {
       this.$router.go({name: 'library'})

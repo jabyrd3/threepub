@@ -11,6 +11,7 @@
   import RenderBook from './components/RenderBook'
   import Library from './components/Library'
   import Authed from './components/Authed'
+  import state from './state'
   // import Dropbox from './components/Dropbox'
   export default {
     components: {
@@ -24,6 +25,9 @@
     Vue.use(VueRouter)
     var App = Vue.extend({})
     Vue.config.debug = true
+    if (window.localStorage.getItem('threepub')) {
+      state.seed()
+    }
     var router = new VueRouter({hashbang: false, history: true})
     router.map({
       '/library': {
