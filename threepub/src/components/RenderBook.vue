@@ -22,10 +22,8 @@
 <script>
 import epub from 'epub.js/build/epub.js'
 import state from '../state'
-// import book from '../../roadside.epub'
 import Controls from './Controls'
 // import panniers from '../assets/panniers.js/panniers.js'
-// console.log(panniers({apiUrl: 'http://google.com'}).get().then(res => { console.log(res) }))
 let Book
 export default {
   data () {
@@ -37,16 +35,21 @@ export default {
   },
   ready () {
     console.log(state)
-    Book = epub(state.currentBook.url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('dl=0', 'dl=1'))
+    Book = epub({restore: true, styles: {
+      backgroundColor: '#888',
+      margin: '0px',
+      width: '100vw',
+      height: '100vh',
+      padding: '0px',
+      color: '#eee'
+    }})
+    Book.open(state.currentBook.url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace('dl=0', 'dl=1'))
     Book.renderTo('area')
   },
   components: {
     Controls
   },
   methods: {
-    test: function () {
-      Book.nextPage()
-    },
     prevPage: function () {
       Book.prevPage()
     },
@@ -89,10 +92,10 @@ export default {
   }
   iframe{
     position: fixed;
-    height: 90vh;
-    width: 90vw;
-    margin-left: 5vw;
-    margin-top: 5vw;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    margin-top: 0px;
     top: 0;
     bottom: 0;
     left: 0;

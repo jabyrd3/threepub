@@ -30,7 +30,7 @@ app.use(devMiddleware)
 // compilation error display
 app.use(hotMiddleware)
 
-app.listen(8080, function (err) {
+app.listen(8080,'threepub', function (err) {
   if (err) {
     console.log(err)
     return

@@ -1,11 +1,10 @@
 <template>
   <div class="hello">
     <h1>Library</h1>
-	<p v-if="token.length == 0"><a href="https://www.dropbox.com/1/oauth2/authorize?client_id=r31566z4sbecjsk&response_type=token&redirect_uri=http://localhost:8080/authed">db auth</a></p>
+	<p v-if="token.length == 0"><a href="https://www.dropbox.com/1/oauth2/authorize?client_id=r31566z4sbecjsk&response_type=token&redirect_uri=https://jordanbyrd.com/threepub/authed">db auth</a></p>
         <div v-if="files.length > 0">
           <ul>
             <li v-for="file in files" >
-              <a v-link="{name: 'book', params:{id: file.name}}">{{file.name}}</a>
               <span v-on:click="fetchBookLink(file)">{{file.name}}</span>
             </li> 
           </ul> 

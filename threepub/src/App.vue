@@ -30,15 +30,15 @@
     }
     var router = new VueRouter({hashbang: false, history: true})
     router.map({
-      '/library': {
+      '/threepub': {
         name: 'library',
         component: Library
       },
-      '/book': {
+      '/threepub/book': {
         name: 'book',
         component: RenderBook
       },
-      '/authed': {
+      '/threepub/authed': {
         component: Authed
       }
     })
@@ -55,18 +55,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  padding: 0px;
+  maring: 0px;
+  height: 100vh;
+  width: 100vw;
 }
-
+iframe{
+  height: 100vh;
+  width: 100vw;
+}
 #app {
-  margin-top: -100px;
-  max-width: 600px;
   font-family: Helvetica, sans-serif;
   text-align: center;
-}
-
-.logo {
-  width: 100px;
-  height: 100px
 }
 </style>
